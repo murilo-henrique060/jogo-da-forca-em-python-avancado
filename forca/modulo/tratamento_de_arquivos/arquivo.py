@@ -1,6 +1,3 @@
-from os import readlink, remove
-
-
 def arquivoExiste(nome):
     """[Identifica se um arquivo existe.]
 
@@ -68,7 +65,6 @@ def lerArquivo(nome):
             palavras = linhas.split(',')
             for pala in palavras:
                 lista.append(pala)
-        print(lista)
         return lista
     a.close()
 def adicionarPalavra(nome,palavra):
@@ -76,7 +72,7 @@ def adicionarPalavra(nome,palavra):
 
     Args:
         nome ([str]): [nome do arquivo]
-        palavra ([str]): [description]
+        palavra ([]): [description]
     """
     try:
         a = open(nome,'at')
@@ -88,5 +84,41 @@ def adicionarPalavra(nome,palavra):
         except:
             print('Erro ao escrever a palavra')
         else:
+            print('='*42)
             print('Nova palavra adicionada com sucesso.')
         a.close()
+def removerPalavra(nome,palavra):
+    try:
+        lista = lerArquivo(nome)
+    except:
+        print('Erro ao ler o arquivo')
+    else:
+        try:
+            n = lista.count(palavra)
+        except:
+            print('Erro ao ler a palavra')
+        else:
+            if n != 0:
+                try:
+                    lista.remove(palavra)
+                except:
+                    print('Erro ao ler a posiçao do arquivo')
+                else:
+                    try:
+                        open(nome,'w').close()
+                    except:
+                        print('Erro ao apagar o arquivo')
+                    else:
+                        try:
+                            a = open(nome,'at')
+                        except:
+                            print('Erro ao sobreescrever')
+                        else:
+                            for numero,itens in enumerate(lista):
+                                if numero == 0:
+                                    a.write(f'{itens}')
+                                else:
+                                    a.write(f',{itens}')
+                            print('Palavra Removida Com Sucesso')
+            else:
+                print('palavra não encontrada')

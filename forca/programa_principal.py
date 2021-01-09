@@ -1,8 +1,27 @@
-from modulo.tratamento_de_arquivos.arquivo import criarArquivo, arquivoExiste, lerArquivo, adicionarPalavra
-from modulo.tratamento_de_strings.coisas_estéticas import cabeçalho, linha
+from time import sleep
+from modulo.tratamento_de_arquivos.arquivo import *
+from modulo.tratamento_de_strings.coisas_estéticas import *
 arq = 'palavras.txt'
 e = arquivoExiste(arq)
 if not e:
     linha('=',42)
     criarArquivo(arq,str(input('Primeira palavra: ')))
-cabeçalho('=','JOGO DA FORCA',42)
+while True:
+    opc = menu(['Acessar Banco De Palavras','Adicionar Palavra','Remover Palavra','Regras','Jogar','Sair'],'JOGO DA FORCA')
+    linha()
+    if opc == 1:
+        pal = lerArquivo(arq)
+        print(pal)
+    elif opc == 2:
+        adicionarPalavra(arq,input('Nova Palavra: '))
+    elif opc == 3:
+        removerPalavra(arq,input('Palavra: '))
+    # elif opc == 4:
+    # 
+    # elif opc == 5:
+    # 
+    else:
+        break
+    sleep(2)
+print('Encerrando O Programa Jogo da forca...')
+print('Volte Sempre.')

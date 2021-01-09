@@ -26,14 +26,14 @@ def cabeçalho(simb='=',txt='ESCREVA O CABEÇALHO',tam=0):
         linha(f'{simb}',tam)
         print(f'{" "*((tam-len(txt))//2)}{txt}')
         linha(f'{simb}',tam)
-def leiaInt(numero):
-    try:
-        num = int(numero)
-    except:
-        print('ERRO! Digite um número inteiro válido')
-        leiaInt(input('Digite sua opção: '))
-    else:
-        return num
+def leiaInt(texto):
+    while True:
+        try:
+            numero = int(input(texto))
+        except:
+            print('ERRO! Digite um número inteiro válido')
+        else:
+            return numero
 def leiaInRange(numero=0,n1=0,n2=1,outRange='ERRO! Número Fora Do Alcance.',cor=False):
     """[Verifica se Um Número Está Dentro de um Range.]
 
@@ -62,10 +62,15 @@ def leiaInRange(numero=0,n1=0,n2=1,outRange='ERRO! Número Fora Do Alcance.',cor
     else:
         return True
 def menu(lista,cabecalho):
-    cabeçalho(cabecalho)
+    cabeçalho('=',cabecalho,42)
     c = 1
     for itens in lista:
         print(f'{c} - {itens}')
         c += 1
     linha('=',42)
-    o
+    while True:
+        opc = leiaInt('Sua Opção: ')
+        r = leiaInRange(opc,1,(len(lista)))
+        if r:
+            return opc
+            break
