@@ -16,8 +16,8 @@ while True:
         adicionarPalavra(arq,input('Nova Palavra: '))
     elif opc == 3:
         removerPalavra(arq,input('Palavra: '))
-    # elif opc == 4:
-    # 
+    elif opc == 4:
+        regras()
     # elif opc == 5:
     # 
     else:

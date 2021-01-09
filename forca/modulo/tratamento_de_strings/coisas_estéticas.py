@@ -74,3 +74,43 @@ def menu(lista,cabecalho):
         if r:
             return opc
             break
+def regras():
+    print(f'{"REGRAS":^42}')
+    linha()
+    print('''Palavras:
+    As palavras do jogo da forca são guardadas em um arquivo de texto chamado \'palavras.txt\', podem ser mudadas no menu principal
+    ps: as palavras devem ser escritas sem acento.
+O Jogo:
+    o jogo começa sorteando uma palavra do banco de palavras, e mostra um hub:
+                                                                        
+    |======|                                                            
+    |                                                                   
+    |                                                                   
+    |                                                                   
+    |           _ _ _ _ _ _ _                                                        
+  =====
+    e a cada erro ele mostra uma parte do corpo (cabeça, tronco, braço direito, braço esquerdo, perna esquera, perna direita. Nessa ordem.)
+    até completar o corpo inteiro como o abaixo:
+                                                                        
+    |======|                                                            
+    |      o                                                             
+    |     /|\                                                            
+    |     / \                                                             
+    |           _ _ _ _ _ _ _                                                        
+  =====
+    e a cada acerto o \'_\' é trocado pela letra escolhida:
+                                                                        
+    |======|                                                            
+    |                                                                   
+    |                                                                   
+    |                                                                   
+    |           _ A _ A _ _ A                                                        
+  =====
+    e quando você perde aparece:
+                                                                        
+    |======|                                                            
+    |      o          VOCÊ PERDEU!!!                                                   
+    |     /|\                                                            
+    |     / \                                                             
+    |           P A L A V R A                                                        
+  =====''')
