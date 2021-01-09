@@ -19,11 +19,12 @@ def arquivoExiste(nome):
         return False
     else:
         return True
-def criarArquivo(nome):
+def criarArquivo(nome,palavra):
     """[Cria um arquivo de texto.]
 
     Args:
         nome ([str]): [nome do arquivo a ser criado.]
+        palavra([str]): [primeira palavra]
     Criado por:
         Murilo-Henrique060
     """
@@ -34,6 +35,18 @@ def criarArquivo(nome):
         print(f'Erro ao criar o arquivo {nome}.')
     else:
         print(f'Arquivo {nome} criado com sucesso.')
+        try:
+            a = open(nome,'at')
+        except:
+            print('Erro ao adicionar a primeira palavra.')
+        else:
+            try:
+                a.write(f'{palavra}')
+            except:
+                print('Erro ao escrever a palavra')
+            else:
+                print('Nova palavra adicionada com sucesso.')
+            a.close()
 def lerArquivo(nome):
     """[lê um arquivo de texto e transforma a última linha em uma lista separada por ,]
 
@@ -59,17 +72,21 @@ def lerArquivo(nome):
         return lista
     a.close()
 def adicionarPalavra(nome,palavra):
+    """[adiciona uma palavra a um arquivo]
+
+    Args:
+        nome ([str]): [nome do arquivo]
+        palavra ([str]): [description]
+    """
     try:
         a = open(nome,'at')
     except:
         print('Erro ao adicionar nova palavra.')
     else:
         try:
-            a.write(f'{palavra},')
+            a.write(f',{palavra}')
         except:
             print('Erro ao escrever a palavra')
         else:
-            # for palavras in a:
-                # if palavras == '
             print('Nova palavra adicionada com sucesso.')
         a.close()
