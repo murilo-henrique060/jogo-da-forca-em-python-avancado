@@ -123,7 +123,9 @@ def removerPalavra(nome,palavra):
             else:
                 print('palavra não encontrada')
 def iniciarJogo(nome):
+    from time import sleep
     from random import randint
+    erros = 0
     resposta = []
     palavras = lerArquivo(nome)
     p = randint(0,(len(palavras)-1))
@@ -131,9 +133,24 @@ def iniciarJogo(nome):
     while True:
         print('')
         print('    |====|')
-        print('    |    o')
-        print('    |   /|\\')
-        print('    |   / \\')
+        print('    |    ',end='')
+        if erros > 0:
+            print('o',end='')
+        print(' ')
+        print('    |   ',end='')
+        if erros == 2:
+            print(' | ',end='')
+        elif erros == 3:
+            print(' |\\',end='')
+        elif erros > 3:
+            print('/|\\',end='')
+        print(' ')
+        print('    |   ',end='')
+        if erros == 5:
+            print('/',end='')
+        elif erros > 5:
+            print('/ \\',end='')
+        print(' ')
         print('    |         ',end='')
         if len(resposta) == 0:
             for letras in palavra:
@@ -158,9 +175,18 @@ def iniciarJogo(nome):
         print('='*42)
         if len(resposta) > 0:
             print(f' letras digitadas: {resposta}\n')
-        resposta.append(str(input('Digite uma letra: ').upper()[0]))
+        r = str(input('Digite uma letra: ')).upper()[0]
+        palavra2 = str(palavra).upper()
+        if r not in palavra2:
+            erros += 1
+            print(f'Não Tem {r}. Você Tem {erros} Erros')
+            sleep(1)
+        resposta.append(r)
         print('='*42)
         cont = 1
+        if erros == 6:
+            print(f'          VOCÊ PERDEU. A PALALAVRA ERA \'{palavra}\'')
+            break
         for letras in palavra:
             letra = str(letras).upper()
             if letra in resposta or letra == ' ':
