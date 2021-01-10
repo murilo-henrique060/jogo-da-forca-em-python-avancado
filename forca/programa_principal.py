@@ -19,7 +19,7 @@ while True:
     elif opc == 4:
         regras()
     # elif opc == 5:
-    # 
+    #
     else:
         break
     sleep(2)
