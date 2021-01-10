@@ -122,3 +122,51 @@ def removerPalavra(nome,palavra):
                             print('Palavra Removida Com Sucesso')
             else:
                 print('palavra não encontrada')
+def iniciarJogo(nome):
+    from random import randint
+    resposta = []
+    palavras = lerArquivo(nome)
+    p = randint(0,(len(palavras)-1))
+    palavra = palavras[p]
+    while True:
+        print('')
+        print('    |====|')
+        print('    |    o')
+        print('    |   /|\\')
+        print('    |   / \\')
+        print('    |         ',end='')
+        if len(resposta) == 0:
+            for letras in palavra:
+                if letras == ' ':
+                    print(' ',end='')
+                else:
+                    print('_ ',end='')
+            print(' ')
+        else:
+            for letras in palavra:
+                letra = str(letras).upper()
+                if letra in resposta:
+                    print(f'{letras} ',end='')
+                else:
+                    if letras == ' ':
+                        print(' ',end='')
+                    else:
+                        print('_ ',end='')
+            print(' ')
+        print('  =====')
+        print('')
+        print('='*42)
+        if len(resposta) > 0:
+            print(f' letras digitadas: {resposta}\n')
+        resposta.append(str(input('Digite uma letra: ').upper()[0]))
+        print('='*42)
+        cont = 1
+        for letras in palavra:
+            letra = str(letras).upper()
+            if letra in resposta or letra == ' ':
+                cont *= 1
+            else:
+                cont *= 0
+        if cont == 1:
+            print('          VOCÊ GANHOU!!!')
+            break

@@ -1,1 +1,1 @@
-fogao,bario
+palavra com espaco
