@@ -13,7 +13,7 @@ while True:
         pal = lerArquivo(arq)
         print(pal)
     elif opc == 2:
-        adicionarPalavra(arq,input('Nova Palavra: '))
+        adicionarPalavra(arq,'Nova Palavra: ')
     elif opc == 3:
         removerPalavra(arq,input('Palavra: '))
     elif opc == 4:

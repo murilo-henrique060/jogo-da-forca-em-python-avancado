@@ -63,25 +63,61 @@ def lerArquivo(nome):
         lista = []
         try:
             for linhas in a:
+                linhas = linhas.replace('\n','')
                 palavras = linhas.split(',')
                 for pala in palavras:
                     lista.append(pala)
+            n = lista.count('')
+            if n > 0:
+                for h in range(n):
+                    lista.remove('')
+            try:
+                a.close()
+                open(nome,'w').close()
+            except:
+                print('Erro ao apagar o arquivo')
+            else:
+                try:
+                    a = open(nome, 'at')
+                except:
+                    print('Erro ao sobreescrever')
+                else:
+                    try:
+                        for v, u in enumerate(lista):
+                            if v == 0:
+                                a.write(u)
+                            else:
+                                a.write(f',{u}')
+                    except:
+                        print('Erro ao escrever')
             return lista
         except:
             print('Erro ao ler a lista.')
     a.close()
-def adicionarPalavra(nome,palavra):
+def adicionarPalavra(nome,texto):
     """[adiciona uma palavra a um arquivo]
 
     Args:
         nome ([str]): [nome do arquivo]
-        palavra ([]): [description]
+        texto ([str]): [titulo do input da palavra a ser adicionada]
     """
     try:
         a = open(nome,'at')
     except:
         print('Erro ao adicionar nova palavra.')
     else:
+        while True:
+            l = lerArquivo(nome)
+            palavra = str(input(texto)).strip()
+            if palavra == '':
+                print('='*42)
+                print('Erro! Digite uma palavra.',end=' ')
+                continue
+            if palavra in l:
+                print('='*42)
+                print('Essa Palavra É Repetida. Tente Novamente.',end=' ')
+                continue
+            break
         try:
             a.write(f',{palavra}')
         except:
