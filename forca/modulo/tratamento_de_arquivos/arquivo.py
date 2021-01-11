@@ -61,11 +61,14 @@ def lerArquivo(nome):
         print(f'Erro ao ler o arquivo {nome}')
     else:
         lista = []
-        for linhas in a:
-            palavras = linhas.split(',')
-            for pala in palavras:
-                lista.append(pala)
-        return lista
+        try:
+            for linhas in a:
+                palavras = linhas.split(',')
+                for pala in palavras:
+                    lista.append(pala)
+            return lista
+        except:
+            print('Erro ao ler a lista.')
     a.close()
 def adicionarPalavra(nome,palavra):
     """[adiciona uma palavra a um arquivo]
@@ -114,14 +117,61 @@ def removerPalavra(nome,palavra):
                         except:
                             print('Erro ao sobreescrever')
                         else:
-                            for numero,itens in enumerate(lista):
-                                if numero == 0:
-                                    a.write(f'{itens}')
-                                else:
-                                    a.write(f',{itens}')
-                            print('Palavra Removida Com Sucesso')
+                            try:
+                                for numero,itens in enumerate(lista):
+                                    if numero == 0:
+                                        a.write(f'{itens}')
+                                    else:
+                                        a.write(f',{itens}')
+                            except:
+                                print('Erro ao adicionar palavra')
+                            else:
+                                print('Palavra Removida Com Sucesso')
             else:
                 print('palavra não encontrada')
+def atualizartela(resposta,palavra,erros):
+    print('')
+    print('    |====|')
+    print('    |    ',end='')
+    if erros > 0:
+        print('o',end='')
+    print(' ')
+    print('    |   ',end='')
+    if erros == 2:
+        print(' | ',end='')
+    elif erros == 3:
+        print(' |\\',end='')
+    elif erros > 3:
+        print('/|\\',end='')
+    print(' ')
+    print('    |   ',end='')
+    if erros == 5:
+        print('/',end='')
+    elif erros > 5:
+        print('/ \\',end='')
+    print(' ')
+    print('    |         ',end='')
+    if len(resposta) == 0:
+        for letras in palavra:
+            if letras == ' ':
+                print(' ',end='')
+            else:
+                print('_ ',end='')
+        print(' ')
+    else:
+        for letras in palavra:
+            letra = str(letras).upper()
+            if letra in resposta:
+                print(f'{letras} ',end='')
+            else:
+                if letras == ' ':
+                    print(' ',end='')
+                else:
+                    print('_ ',end='')
+        print(' ')
+    print('  =====')
+    print('')
+    print('='*42)
 def iniciarJogo(nome):
     from time import sleep
     from random import randint
@@ -131,48 +181,7 @@ def iniciarJogo(nome):
     p = randint(0,(len(palavras)-1))
     palavra = palavras[p]
     while True:
-        print('')
-        print('    |====|')
-        print('    |    ',end='')
-        if erros > 0:
-            print('o',end='')
-        print(' ')
-        print('    |   ',end='')
-        if erros == 2:
-            print(' | ',end='')
-        elif erros == 3:
-            print(' |\\',end='')
-        elif erros > 3:
-            print('/|\\',end='')
-        print(' ')
-        print('    |   ',end='')
-        if erros == 5:
-            print('/',end='')
-        elif erros > 5:
-            print('/ \\',end='')
-        print(' ')
-        print('    |         ',end='')
-        if len(resposta) == 0:
-            for letras in palavra:
-                if letras == ' ':
-                    print(' ',end='')
-                else:
-                    print('_ ',end='')
-            print(' ')
-        else:
-            for letras in palavra:
-                letra = str(letras).upper()
-                if letra in resposta:
-                    print(f'{letras} ',end='')
-                else:
-                    if letras == ' ':
-                        print(' ',end='')
-                    else:
-                        print('_ ',end='')
-            print(' ')
-        print('  =====')
-        print('')
-        print('='*42)
+        atualizartela(resposta,palavra,erros)
         if len(resposta) > 0:
             print(f' letras digitadas: {resposta}\n')
         r = str(input('Digite uma letra: ')).upper()[0]
@@ -185,6 +194,7 @@ def iniciarJogo(nome):
         print('='*42)
         cont = 1
         if erros == 6:
+            atualizartela(resposta,palavra,erros)
             print(f'          VOCÊ PERDEU. A PALALAVRA ERA \'{palavra}\'')
             break
         for letras in palavra:
@@ -194,5 +204,6 @@ def iniciarJogo(nome):
             else:
                 cont *= 0
         if cont == 1:
+            atualizartela(resposta,palavra,erros)
             print('          VOCÊ GANHOU!!!')
             break
