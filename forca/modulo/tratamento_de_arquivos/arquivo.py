@@ -1,4 +1,4 @@
-def arquivoExiste(nome):
+﻿def arquivoExiste(nome):
     """[Identifica se um arquivo existe.]
 
     Args:
@@ -40,7 +40,7 @@ def criarArquivo(nome,palavra):
             try:
                 a.write(f'{palavra}')
             except:
-                print('Erro ao escrever a palavra')
+                print('Erro ao escrever a palavra.')
             else:
                 print('Nova palavra adicionada com sucesso.')
             a.close()
@@ -212,34 +212,55 @@ def iniciarJogo(nome):
     from time import sleep
     from random import randint
     erros = 0
+    caracteresEspeciais = [('A','Á','À','Â','Ã','ª','Ä','@'),('E','É','È','Ê','Ë'),('I','Í','Ì','Î','Ï','&'),('O','Ó','Ò','Ô','Õ','Ö','º'),('U','Ú','Ù','Û','Ü'),('N','Ñ'),('S','$'),('C','Ç')]
     resposta = []
     palavras = lerArquivo(nome)
-    p = randint(0,(len(palavras)-1))
-    palavra = palavras[p]
-    while True:
-        atualizartela(resposta,palavra,erros)
-        if len(resposta) > 0:
-            print(f' letras digitadas: {resposta}\n')
-        r = str(input('Digite uma letra: ')).upper()[0]
-        palavra2 = str(palavra).upper()
-        if r not in palavra2:
-            erros += 1
-            print(f'Não Tem {r}. Você Tem {erros} Erros')
-            sleep(1)
-        resposta.append(r)
-        print('='*42)
-        cont = 1
-        if erros == 6:
+    if len(palavras) != 0:
+        p = randint(0,(len(palavras)-1))
+        palavra = palavras[p]
+        while True:
             atualizartela(resposta,palavra,erros)
-            print(f'          VOCÊ PERDEU. A PALALAVRA ERA \'{palavra}\'')
-            break
-        for letras in palavra:
-            letra = str(letras).upper()
-            if letra in resposta or letra == ' ':
-                cont *= 1
-            else:
-                cont *= 0
-        if cont == 1:
-            atualizartela(resposta,palavra,erros)
-            print('          VOCÊ GANHOU!!!')
-            break
+            if len(resposta) > 0:
+                print(f' letras digitadas: {resposta}\n')
+            while True:
+                try:
+                    r = str(input('Digite uma letra: ')).upper()[0]
+                except IndexError:
+                    print('Digite uma letra.')
+                    print(f'='*42)
+                else:
+                    controle = True
+                    for i in resposta:
+                        for conjuntoDeCaracteres in caracteresEspeciais:
+                                if i in conjuntoDeCaracteres and r in conjuntoDeCaracteres:
+                                    controle = False
+                    if r not in resposta and controle:
+                        break
+                    else:
+                        print('Esta Letra já foi Digitada.',end=' ')
+
+            palavra2 = str(palavra).upper()
+            if r not in palavra2 and r:
+                erros += 1
+                print(f'Não Tem {r}. Você Tem {erros} Erros')
+                sleep(1)
+            resposta.append(r)
+            print('='*42)
+            cont = 1
+            if erros == 6:
+                atualizartela(resposta,palavra,erros)
+                print(f'          VOCÊ PERDEU. A PALALAVRA ERA \'{palavra}\'')
+                break
+            for letras in palavra:
+                letra = str(letras).upper()
+                if letra in resposta or letra == ' ':
+                    cont *= 1
+                else:
+                    cont *= 0
+            if cont == 1:
+                atualizartela(resposta,palavra,erros)
+                print(f'{"VOCÊ GANHOU!!!":^42}')
+                break
+    else:
+        print('Não foi encontrada nenhuma palavra no banco de palavras.')
+        adicionarPalavra(nome,'Primeira Palavra: ')

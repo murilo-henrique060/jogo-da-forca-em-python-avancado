@@ -50,7 +50,7 @@ def leiaInRange(numero=0,n1=0,n2=1,outRange='ERRO! Número Fora Do Alcance.',cor
         Murilo_Henrique060
     """
     if cor:
-        from colorama import init
+        from colorama import init 
         init()
     v = 0
     for n in range(n1,n2+1):
@@ -61,7 +61,7 @@ def leiaInRange(numero=0,n1=0,n2=1,outRange='ERRO! Número Fora Do Alcance.',cor
         return False
     else:
         return True
-def menu(lista,cabecalho):
+def menu(lista,cabecalho,input='Sua Opcão: '):
     cabeçalho('=',cabecalho,42)
     c = 1
     for itens in lista:
@@ -69,7 +69,7 @@ def menu(lista,cabecalho):
         c += 1
     linha('=',42)
     while True:
-        opc = leiaInt('Sua Opção: ')
+        opc = leiaInt(input)
         r = leiaInRange(opc,1,(len(lista)))
         if r:
             return opc
@@ -106,7 +106,7 @@ O Jogo:
     |                                                                   
     |           _ A _ A _ _ A                                                        
   =====
-    e quando você perde aparece:
+    e quando você perde:
                                                                         
     |======|                                                            
     |      o          VOCÊ PERDEU!!!                                                   

@@ -25,3 +25,4 @@ while True:
     sleep(2)
 print('Encerrando O Programa Jogo da forca...')
 print('Volte Sempre.')
+sleep(0.5)
